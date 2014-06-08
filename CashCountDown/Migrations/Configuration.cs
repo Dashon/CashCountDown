@@ -5,40 +5,35 @@ namespace CashCountDown.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using CashCountDown.Models;
-    using System.Collections.Generic;
 
-
+        
 
     internal sealed class Configuration : DbMigrationsConfiguration<CashCountDownContext>
     {
-        // private readonly CashCountDownContext db = new CashCountDownContext();
+        private readonly CashCountDownContext db = new CashCountDownContext();
 
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+           // AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CashCountDownContext context)
         {
-            var categories = new List<Category>{
+            //  This method will be called after migrating to the latest version.
 
-                new Category {Name="Electronics"},
-                new Category {Name="Appliances"},
-                new Category {Name="Books"}
-            };
-            categories.ForEach(s => context.Categories.AddOrUpdate(p => p.Name, s));
-            context.SaveChanges();
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
 
 
-            var products = new List<Product> {
-        new Product{Name="DVD Player", CategoryId =1,BuyItPrice = 100, RetailPrice = 90, UserId=1,Active=true,Description="Portable DVD Player",CreatedOn = DateTime.Now,ModifiedOn = DateTime.Now},
-        new Product{Name="GPS Unit", CategoryId =1,BuyItPrice = 120, RetailPrice = 100, UserId=1,Active=true,Description="Garmin GPS Unit",CreatedOn = DateTime.Now,ModifiedOn = DateTime.Now}
-            };
-            products.ForEach(s => context.Products.AddOrUpdate(p => p.Name, s));
-            context.SaveChanges();
         }
-
     }
-
 }

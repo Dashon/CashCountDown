@@ -11,7 +11,7 @@ namespace CashCountDown.Helpers
     {
         private AuctionRepository AuctionRepo = new AuctionRepository();
 
-
+        
         public Boolean Authorize(Authorizer Auth)
         {
             return true;
@@ -68,9 +68,9 @@ namespace CashCountDown.Helpers
 
         }
 
-        public Boolean SubmitPayPal(PayPalSubmit PayPalSubmitContents, int userId)
+        public Boolean SubmitPayPal(PayPalSubmit PayPalSubmitContents)
         {   //Enter PayPal Command
-            return AuctionRepo.submitPayPal(PayPalSubmitContents, userId);
+            return AuctionRepo.submitPayPal(PayPalSubmitContents);
         }
 
         public int GetItemCost(int AuctionId)

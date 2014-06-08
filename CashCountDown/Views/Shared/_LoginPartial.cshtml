@@ -1,22 +1,21 @@
-﻿@if (Request.IsAuthenticated)
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
 {
-    var db = new CashCountDown.CashCountDownContext();
-    int balance = db.UserProfiles.Find(WebSecurity.CurrentUserId).BidBalance;
-    <text>
-    Hello, @Html.ActionLink(User.Identity.Name, "MyProfile", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ActionLink("Bids Remaining: " + balance, "Index", "BidPackages",routeValues: null,htmlAttributes: new { @class="bid-balance flashers"});
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-           
-        }
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
 
-    </text>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
 }
 else
 {
-    <ul>
+    <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

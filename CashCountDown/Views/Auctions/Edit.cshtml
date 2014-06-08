@@ -13,14 +13,12 @@
     <fieldset>
         <legend>Auction</legend>
 
-       @Html.HiddenFor(model => model.AuctionId)
+        @Html.HiddenFor(model => model.AuctionId)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ProductName, "Product")
+            @Html.LabelFor(model => model.Active, "Product")
         </div>
-        <div class="editor-field">
-            @Model.ProductName
-        </div>
+      
 
         <div class="editor-label">
             @Html.LabelFor(model => model.BidCost)
@@ -45,7 +43,7 @@
             @Html.EditorFor(model => model.Active)
             @Html.ValidationMessageFor(model => model.Active)
         </div>
-
+     
 
         <div class="editor-label">
             @Html.LabelFor(model => model.ExpirationDate)

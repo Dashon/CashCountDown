@@ -24,7 +24,7 @@ namespace CashCountDown.Models
         public int Savings { get; set; }
         public int StartPrice { get; set; }
         public int BidIncrement { get; set; }
-        public ICollection<BidHistory> Bids { get; set; }
+        public ICollection<Bid> Bids { get; set; }
         public string WinnerUserName { get; set; }
         public bool HasAutobids { get; set; }
         public bool Active { get; set; }
@@ -42,7 +42,6 @@ namespace CashCountDown.Models
         public int BidCost { get; set; }
         public int BidIncrement { get; set; }
         public bool Active { get; set; }
-        public string ProductName { get; set; }
         public DateTime ExpirationDate { get; set; }
     }
 
@@ -95,4 +94,53 @@ namespace CashCountDown.Models
         public string userName { get; set; }
         public bool IsAutoBid { get; set; }
     }
+
+
+    public class SubmitOrder
+    {
+        [Required]
+        public int UserId { get; set; }
+        public int AuctionId { get; set; }
+        public int BidPackageId { get; set; }
+    }
+
+
+    public class LoadBidPackage
+    {
+        [Required]
+        public int PackageId { get; set; }
+        [Required]
+        public int UserId { get; set; }
+    }
+    public class PlaceBid
+    {
+        [Required]
+        public int AuctionId { get; set; }
+        [ForeignKey("AuctionId")]
+        public virtual Auction Auction { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        public int Amount { get; set; }
+
+    }
+
+    [Serializable]
+    public class UpdateResult
+    {
+        public string Auction { get; set; }
+        public int Balance { get; set; }
+        public DateTime serverTimeString { get; set; }
+        public bool future { get; set; }
+        public int Price { get; set; }
+        public bool CanBid { get; set; }
+        public TimeSpan TimeLeft { get; set; }
+        public double savingsPercentage { get; set; }
+        public double savingsPrice { get; set; }
+        public int price_increment { get; set; }
+        public String WinningBidder { get; set; }
+        public List<Bid> BidHistory { get; set; }
+
+    }
+   
+
 }

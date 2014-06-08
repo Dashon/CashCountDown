@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCountDown", "CashCountDown\CashCountDown.csproj", "{4E5EDC17-351C-4BA8-B7B0-76E77F29DB38}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCountDown", "CashCountDown\CashCountDown.csproj", "{76384069-9988-410A-A616-E1FCEB9C95C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCountDown.Tests", "CashCountDown.Tests\CashCountDown.Tests.csproj", "{5408D84D-6C74-4C9F-A95A-C40D3194B426}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4E5EDC17-351C-4BA8-B7B0-76E77F29DB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E5EDC17-351C-4BA8-B7B0-76E77F29DB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E5EDC17-351C-4BA8-B7B0-76E77F29DB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E5EDC17-351C-4BA8-B7B0-76E77F29DB38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76384069-9988-410A-A616-E1FCEB9C95C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76384069-9988-410A-A616-E1FCEB9C95C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76384069-9988-410A-A616-E1FCEB9C95C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76384069-9988-410A-A616-E1FCEB9C95C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5408D84D-6C74-4C9F-A95A-C40D3194B426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5408D84D-6C74-4C9F-A95A-C40D3194B426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5408D84D-6C74-4C9F-A95A-C40D3194B426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5408D84D-6C74-4C9F-A95A-C40D3194B426}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

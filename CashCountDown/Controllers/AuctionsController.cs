@@ -7,17 +7,28 @@ using System.Web;
 using System.Web.Mvc;
 using CashCountDown.Models;
 using System.Web.Security;
-using WebMatrix.WebData;
 using Newtonsoft.Json;
 using CashCountDown.Interfaces;
 using CashCountDown.Repositories;
 using CashCountDown.Helpers;
+using Microsoft.Owin.Security;
+using WebMatrix.WebData;
+using System.Net;
 
 namespace CashCountDown.Controllers
 {
     public partial class AuctionsController : Controller
     {
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
         private int _userId = (WebSecurity.IsAuthenticated) ? WebSecurity.CurrentUserId : 0;
+       // private int _userId = (AuthenticationManager.User) ? AuthenticationManager.CurrentUserId : 0;
         private AuctionRepository AuctionRepo = new AuctionRepository();
         private AutoBidRepository AutoBidRepo = new AutoBidRepository();
         private readonly AuctionHelpers helper = new AuctionHelpers();
@@ -58,8 +69,6 @@ namespace CashCountDown.Controllers
         public virtual ActionResult Create()
         {
             Auction_Create create = AuctionRepo.getCreate();
-            ViewBag.ProductId = new SelectList(create.AllProducts, "ProductId", "Name");
-
             return View(create);
         }
 
@@ -70,10 +79,10 @@ namespace CashCountDown.Controllers
         {
             if (ModelState.IsValid)
             {
-                int created = AuctionRepo.create(auction, _userId);
-                if (created != 0)
+                bool created = AuctionRepo.create(auction);
+                if (created)
                 {
-                    return RedirectToAction("Details", "Auctions", new { id = created });
+                    return RedirectToAction("Details", "Auctions", new { id = auction.AuctionId });
                 }
                 else
                 {
@@ -140,7 +149,7 @@ namespace CashCountDown.Controllers
         [Authorize, HttpPost, ValidateAntiForgeryToken]
         public virtual JsonResult PlaceBidAjax(int id)
         {
-            var status = AuctionRepo.placeBid(id, _userId);
+            var status = AuctionRepo.placeBid(id);
             return Json(status);
         }
 
@@ -162,7 +171,7 @@ namespace CashCountDown.Controllers
             }
 
             //submit order
-            bool orderSubmitted = AuctionRepo.submitOrder(OrderContents, _userId);
+            bool orderSubmitted = AuctionRepo.submitOrder(OrderContents);
             if (orderSubmitted)
             {
                 return RedirectToAction("Index", "Auctions");
@@ -198,7 +207,7 @@ namespace CashCountDown.Controllers
         [HttpPost]
         public virtual JsonResult statusupdate(DateTime tt, Array ids)
         {
-            return Json(AuctionRepo.statusupdate(tt, ids, _userId));
+            return Json(AuctionRepo.statusupdate(tt, ids));
         }
 
 

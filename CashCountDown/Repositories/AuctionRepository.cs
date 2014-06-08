@@ -13,13 +13,14 @@ using WebMatrix.WebData;
 
 namespace CashCountDown.Repositories
 {
-
+    
     public class AuctionRepository : IAuctionRepository
     {
         private CashCountDownContext db { get; set; }
+        private readonly AuctionHelpers helper = new AuctionHelpers();
         private int _userId { get; set; }
 
-        public AuctionRepository()
+        public AuctionRepository(int _userId = 0)
         {
             db = new CashCountDownContext();
             _userId = WebSecurity.CurrentUserId;
@@ -32,13 +33,12 @@ namespace CashCountDown.Repositories
                 .Include("Product")
                 .Include("WinningUser")
                 .Where(x => x.Active == true
-                    & x.ExpirationDate > DateTime.Now);
-                    //   & x.ExpirationDate < maxTime)
-                    
+                    & x.ExpirationDate > DateTime.Now
+                       & x.ExpirationDate < maxTime);
             ICollection<Auction_Details> ads = null;
             foreach (Auction auction in auctions)
             {
-                ads.Add(auctionToAuctionDetails(auction, _userId));
+                ads.Add(auctionToAuctionDetails(auction));
             }
             return ads.AsQueryable();
         }
@@ -52,10 +52,10 @@ namespace CashCountDown.Repositories
                 .Include("Bids")
                 .Include("WinningUser")
                 .Single(y => y.AuctionId == id);
-            return auctionToAuctionDetails(auction, _userId);
+            return auctionToAuctionDetails(auction);
         }
 
-        public string placeBid(int id, int userId)
+        public string placeBid(int id)
         {
             var MainRepo = new MainRepository<Auction>(db);
             Auction auction = db.Auctions
@@ -64,7 +64,7 @@ namespace CashCountDown.Repositories
 
             var Amount = auction.Price + auction.BidIncrement;
 
-            if (auction.WinningUserId == userId)
+            if (auction.WinningUserId == _userId)
             {
                 return "You are already winning";
             }
@@ -77,17 +77,17 @@ namespace CashCountDown.Repositories
                 ,
                 AuctionId = id
                 ,
-                UserId = userId
+                UserId = _userId
                 ,
                 IsAutoBid = false
             };
 
-            if ((getBidBalance(userId) >= 1)
+            if ((getBidBalance(_userId) >= 1)
                 & (Amount > auction.Price)
                 & (auction.ExpirationDate > DateTime.Now)
                 & (auction.Active == true))
             {
-                db.UserProfiles.Find(userId).BidBalance -= 1;
+                db.UserProfiles.Find(_userId).BidBalance -= 1;
                 db.Bids.Add(bid);
                 auction.Price = bid.Amount;
                 auction.ExpirationDate = auction.ExpirationDate.AddSeconds(30);
@@ -111,8 +111,7 @@ namespace CashCountDown.Repositories
                 AuctionId = auction.AuctionId,
                 BidCost = auction.BidCost,
                 BidIncrement = auction.BidIncrement,
-                ExpirationDate = auction.ExpirationDate,
-                ProductName = auction.Product.Name
+                ExpirationDate = auction.ExpirationDate
             };
 
         }
@@ -145,9 +144,9 @@ namespace CashCountDown.Repositories
             return create;
         }
 
-        public int create(Auction_Create create, int userId)
+        public bool create(Auction_Create create)
         {
-            if (create == null) { return 0; }
+            if (create == null) { return false; }
             Auction auction = new Auction
             {
                 Active = create.Active,
@@ -158,11 +157,11 @@ namespace CashCountDown.Repositories
                 Price = create.Price,
                 ProductId = create.ProductId,
                 StartPrice = create.StartPrice,
-                UserId = userId
+                UserId = _userId
             };
             db.Auctions.Add(auction);
             db.SaveChanges();
-            return auction.AuctionId;
+            return true;
 
         }
 
@@ -183,7 +182,7 @@ namespace CashCountDown.Repositories
 
 
 
-        public bool submitOrder(SubmitOrder OrderContents, int userId)
+        public bool submitOrder(SubmitOrder OrderContents)
         {
             Boolean PayPalSuccess = false;
             Order order = new Order
@@ -194,7 +193,7 @@ namespace CashCountDown.Repositories
 
 
 
-            UserProfile usr = db.UserProfiles.Find(userId);
+            UserProfile usr = db.UserProfiles.Find(_userId);
 
             if (OrderContents.BidPackageId > 0)
             {
@@ -205,7 +204,7 @@ namespace CashCountDown.Repositories
                     ,
                     userprofile = usr
                 };
-                PayPalSuccess = submitPayPal(PayPalSubmitContents, _userId);
+                PayPalSuccess = submitPayPal(PayPalSubmitContents);
                 order.BidPackageId = OrderContents.BidPackageId;
                 order.Amount = bp.Amount;
             }
@@ -220,7 +219,7 @@ namespace CashCountDown.Repositories
                 };
                 if (auction.Active == true)
                 {
-                    PayPalSuccess = submitPayPal(PayPalSubmitContents, _userId);
+                    PayPalSuccess = submitPayPal(PayPalSubmitContents);
                     order.AuctionId = OrderContents.AuctionId;
                     order.Amount = auction.Product.BuyItPrice;
                 }
@@ -238,7 +237,7 @@ namespace CashCountDown.Repositories
                 {
                     LoadBidPackage bidpackageContent = new LoadBidPackage
                     {
-                        UserId = userId
+                        UserId = _userId
                         ,
                         PackageId = OrderContents.BidPackageId
                     };
@@ -384,7 +383,7 @@ namespace CashCountDown.Repositories
                 return false;
             }
         }
-        public Boolean submitPayPal(PayPalSubmit PayPalSubmitContents, int userId)
+        public Boolean submitPayPal(PayPalSubmit PayPalSubmitContents)
         {
             int amount = 0;
             if (PayPalSubmitContents.bidpackage != null)
@@ -395,7 +394,7 @@ namespace CashCountDown.Repositories
             else if (PayPalSubmitContents.auction != null)
             {
                 if ((PayPalSubmitContents.auction.ExpirationDate < DateTime.Now)
-                    & (PayPalSubmitContents.auction.WinningUserId == userId))
+                    & (PayPalSubmitContents.auction.WinningUserId == _userId))
                 {
                     amount = PayPalSubmitContents.auction.Price;
                 }
@@ -409,7 +408,7 @@ namespace CashCountDown.Repositories
             return true;
         }
 
-        private Auction_Details auctionToAuctionDetails(Auction auction, int userId)
+        private Auction_Details auctionToAuctionDetails(Auction auction)
         {
             Auction_Details _auctionDetails = new Auction_Details();
 
@@ -428,24 +427,18 @@ namespace CashCountDown.Repositories
             _auctionDetails.WinnerUserName = "No Bids";
             _auctionDetails.ProductName = auction.Product.Name;
             _auctionDetails.Price = auction.Price;
-            _auctionDetails.Bids = auction.Bids.Select(x => new BidHistory()
-            {
-                DateTime = x.CreatedOn,
-                Amount = x.Amount,
-                userName = x.UserProfile.UserName,
-                IsAutoBid = x.IsAutoBid
-            }).ToList();
 
+            //Check winning user
             if (auction.WinningUser != null)
             {
                 _auctionDetails.WinnerUserName = auction.WinningUser.UserName;
             }
 
             //check if user has autobids for this item
-            if (userId != 0)
+            if (_userId != 0)
             {
                 var MyAutobid = db.AutoBids
-                    .Where(x => x.AuctionId == auction.AuctionId & x.Active == true & x.UserId == userId)
+                    .Where(x => x.AuctionId == auction.AuctionId & x.Active == true & x.UserId == _userId)
                     .FirstOrDefault();
                 if (MyAutobid != null)
                 {
@@ -476,27 +469,25 @@ namespace CashCountDown.Repositories
             _auctionDetails.ProductDesc = auction.Product.Description;
             _auctionDetails.ProductCat = auction.Product.Category.Name;
             _auctionDetails.StartPrice = auction.StartPrice;
-            _auctionDetails.Active = auction.Active;
-            _auctionDetails.AuctionId = auction.AuctionId;
             return _auctionDetails;
 
         }
 
 
-        public virtual IQueryable<UpdateResult> statusupdate(DateTime tt, Array ids, int userId)
+        public virtual IQueryable<UpdateResult> statusupdate(DateTime tt, Array ids)
         {
             ICollection<UpdateResult> AuctionUpdates = new List<UpdateResult>();
             var bidbalance = 0;
-            if (userId != 0)
+            if (_userId != 0)
             {
-                bidbalance = getBidBalance(userId);
+                bidbalance = helper.GetBidBalance(_userId);
             }
             var Auctions = db.Auctions.Include("WinningUser").Include("Product").Where(x => x.ExpirationDate > tt
                 & x.Active == true);
 
             foreach (int id in ids)
             {
-                Auction auction = db.Auctions.Include("WinningUser").Include("Product").First(x => x.AuctionId == id);
+                Auction auction = db.Auctions.Include("WinningUser").Include("Product").First(x=>x.AuctionId == id);
                 UpdateResult UR = new UpdateResult();
                 UR.serverTimeString = DateTime.Now;
                 UR.Auction = "auction_" + auction.ProductId;

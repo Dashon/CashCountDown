@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = Model.ProductName;
-
+  
 }
 
 <div id="container" class="auction-Product">
@@ -28,7 +28,7 @@
                     <div class="col1">
                         <div class="content">
                             <div class="auction-image">
-                                <img src="http://hhgregg.scene7.com/is/image/hhgregg/DP132_a2_fronthigh?id=dzMRJ2&scl=16&req=tile&rect=0,0,157,157&fmt=jpg" class="productImageMax" alt="@Model.ProductName" title="@Model.ProductName">
+                                <img src="http://www.phppennyauctiondemo.com/img/product_images/max/d2cf901b417f3a71194bd35a12d766b27235244a.jpeg" class="productImageMax" alt="@Model.ProductName" title="@Model.ProductName">
                             </div>
                             <div class="thumbs">
                             </div>
@@ -49,7 +49,8 @@
                         <div class="content auction-Product" title="@Model.AuctionId" id="auction_@Model.AuctionId" style="padding: 0;">
                             <div class="sub-col1">
 
-                                <dl class="clearfix" style="padding: 10px 10px 0;"></dl>
+                                <dl class="clearfix" style="padding: 10px 10px 0;">
+                                </dl>
 
                                 <dl class="clearfix" style="padding: 10px 10px 0;">
                                     <dt>
@@ -65,8 +66,7 @@
 
                                     </dd>
                                     <br />
-                                    <dt>
-                                        Buy it now :
+                                    <dt>Buy it now :
                                     </dt>
                                     <dd class="price_bin">$@Html.DisplayFor(model => model.BuyItPrice)</dd>
                                     <br />
@@ -86,15 +86,14 @@
                                             <span class="tips">
                                                 <pre>With each bid, the time remaining will increase by <strong class="orange2">10 seconds</strong>.</pre>
                                             </span>
-                                            <img src="http://assets.phppennyauctiondemo.com/img/increment/time8.png" class="timeincrement">
-                                        </a>
+                                            <img src="http://assets.phppennyauctiondemo.com/img/increment/time8.png" class="timeincrement"></a>
                                     </span>
                                     @{var remainng = Model.ExpirationDate.Subtract(DateTime.Now);}
                                     <div id="timer_@Model.AuctionId" class="timer countdown flashers" title="@remainng.TotalMilliseconds" style="color: rgb(0, 0, 0);">Loading...</div>
                                 </div>
 
                                 <div class="bid-now" style="height: 55px; clear: both">
-                                    @{
+                                    @{  
 
                                         if(WebSecurity.IsAuthenticated){
                                             Html.RenderPartial("_PlaceBid", Model.Bid);
@@ -143,11 +142,10 @@
                             <ul class="tbs">
                                 <li><a href="#tabs-1" class="current">Bids</a></li>
                                 @{if (WebSecurity.IsAuthenticated)
-                                  {
-                                    <li><a href="#tabs-2">Autobids</a></li>}}
+                                  {<li><a href="#tabs-2">Autobids</a></li>}}
                             </ul>
                             <div class="bid-history bid-histories" id="tabs-1" style="display: block; overflow-y: scroll">
-                                @{Html.RenderPartial("_BidHistory", Model.Bids);}
+                                @{Html.RenderPartial(MVC.Shared.Views._BidHistory, Model.Bids);}
 
                             </div>
                             <!-- the
@@ -157,13 +155,13 @@
                                 @{
                                     if (ViewData["HasAutobid"] == "true")
                                     {
-                                        Html.RenderPartial("_EditAutoBid", Model.UserAutoBid);
+                                        Html.RenderPartial("_EditAutoBid", ViewData["MyAutobid"]);
                                     }
                                     else
                                     {
-                                        Html.RenderPartial("_NewAutoBid", Model.UserAutoBid);
+                                        Html.RenderPartial("_NewAutoBid", ViewData["MyAutobid"]);
                                     }
-
+                                    
                                 }
                             </div>
                         </div>
@@ -221,7 +219,7 @@
                 <div class="f-bottom-top clearfix">
                     <p class="page_top">
                         <a href="#" id="link_to_top">TOP OF PAGE</a>|
-                        @Html.ActionLink("Edit", "Edit", new { id = Model.AuctionId })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AuctionId })
                     </p>
                 </div>
             </div>

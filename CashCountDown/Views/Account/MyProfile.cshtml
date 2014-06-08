@@ -1,0 +1,57 @@
+﻿@model CashCountDown.Models.UserProfile
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+<h2>My Profile</h2>
+<h3>Bids Remaining:@Html.DisplayFor(model => model.BidBalance)</h3>
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.UserName)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.UserName)
+</div>
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.FirstName)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.FirstName)
+</div>
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.MiddleInitial)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.MiddleInitial)
+</div>
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.LastName)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.LastName)
+</div>
+<div class="display-label">
+    @Html.DisplayNameFor(model => model.Email)
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Email)
+</div>
+
+@if (Model.ShippingAddr != null)
+{
+    @Html.Partial("_ShippingAddr", Model.ShippingAddr);
+}
+else
+{
+    @Html.ActionLink("Add Shipping Address","NewShippingAddr","Account")
+    
+}
+
+@if (Model.BillingAddr != null)
+{
+    @Html.Partial("_BillingAddr", Model.BillingAddr);
+}
+else
+{
+  @Html.ActionLink("Add Billing Address","NewBillingAddr","Account")
+}
+

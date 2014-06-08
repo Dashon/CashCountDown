@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CashCountDown.Models.Auction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+    @Scripts.Render("~/bundles/jquery")
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@foreach (var item in Model)
+{
+    <table>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Product.Name)
+                @Html.DisplayFor(modelItem => item.Product.Name)
+
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Product.RetailPrice)
+                @Html.DisplayFor(modelItem => item.Product.RetailPrice)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+
+            <td>
+                @Html.DisplayNameFor(model => model.ExpirationDate)
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+            @Html.ActionLink("Deactivate", "Deactivate", new { id = item.ProductId })|
+    
+            </td>
+        </tr>
+    </table>
+       
+  {
+      var bd = new CashCountDown.Models.Bid { AuctionId = item.AuctionId };
+      var ord = new CashCountDown.Models.Order { AuctionId = item.AuctionId };
+      Html.RenderPartial("_PlaceBid",bd);
+      Html.RenderPartial("_PlaceOrder", ord);
+  }
+}
+<input type="button" id="btn" name="btn" class="btn" value="test"/>
+

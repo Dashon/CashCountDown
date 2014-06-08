@@ -1,0 +1,32 @@
+﻿@model CashCountDown.Models.Auction
+
+@{
+    ViewBag.Title = Model.Product.Name;
+}
+
+<li class="auction-Product" title="@Model.AuctionId" id="auction_@Model.AuctionId">
+    <div class="content">
+        <h3><a href="/auctions/Details/@Model.AuctionId">@Model.Product.Name</a></h3>
+        <div class="thumb clearfix">
+            <a href="/auctions/Details/@Model.AuctionId"><span class=" "></span>
+                <img src="http://hhgregg.scene7.com/is/image/hhgregg/DP132_a2_fronthigh?id=dzMRJ2&scl=16&req=tile&rect=0,0,157,157&fmt=jpg" alt="">
+            </a>
+        </div>
+        <div id="timer_@Model.AuctionId" class="timer countdown clearfix flashers" title="@DateTime.Now" style="background-color: rgb(255, 255, 248);">Loading...</div>
+        <div class="price clearfix">
+            <span class="bid-price flashers" style="background-image: none; background-color: rgb(255, 255, 248);">$@Model.Price</span>
+        </div>
+        @{ var un = (Model.WinningUserId == null) ? "No Bidders" : Model.WinningUser.UserName;}
+
+        <div class="username bid-bidder clearfix flashers" style="background-image: none; background-color: rgb(255, 255, 248);">@un</div>
+        <div class="bid-now clearfix">
+            @{  var bd = new CashCountDown.Models.Bid { AuctionId = Model.AuctionId , Auction=Model };
+                Html.RenderPartial("_PlaceBid", bd);
+
+            }
+        </div>
+        <div class="bid-msg">
+            <div class="bid-message"></div>
+        </div>
+    </div>
+</li>

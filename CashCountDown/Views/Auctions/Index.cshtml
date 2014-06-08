@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CashCountDown.Models.Auction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="container">
+    <div id="maincontent" class="clearfix">
+
+        <div id="ending-soon" class="box">
+            <div class="f-top clearfix">
+                <h2>Live Auctions</h2>
+                <p>List of live auctions</p>
+            </div>
+            <div class="f-repeat clearfix">
+                <div class="content" style="padding: 20px 20px 20px 30px !important;">
+
+
+                    @{Html.RenderPartial("_HorizantalAuctionList",Model);}
+
+                    <!-- Start Results Bar -->
+                    <div class="paging">
+                        <div class="pagenumber" style="width: 500px;">
+                            <ul></ul>
+                        </div>
+                        <div class="totalresults">
+                        </div>
+                    </div>
+                    <!-- End Results Bar -->
+                </div>
+                <br class="clear_l">
+                <div class="crumb_bar">
+                    <div class="crumb">
+                        <a href="/">Home</a> »
+    <a href="/auctions">Live Auctions</a>
+                    </div>
+                </div>
+            </div>
+            <div class="f-bottom-top clearfix">
+                <p class="page_top"><a href="#" id="link_to_top">PAGE TOP</a></p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

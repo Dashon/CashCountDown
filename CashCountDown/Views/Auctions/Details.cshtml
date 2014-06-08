@@ -1,0 +1,232 @@
+﻿@model CashCountDown.Models.Auction_Details
+
+@{
+    ViewBag.Title = Model.ProductName;
+
+}
+
+<div id="container" class="auction-Product">
+    <div id="maincontent" class="clearfix">
+
+        <div id="auction-details" class="box">
+            <div class="f-top-o clearfix" style="height: 84px;">
+
+                <div class="detail_head">
+                    <div class="detail_head_l">
+                        @{var active = (Model.Active) ? "" : "NOT ACTIVE";}
+                        <h2>@Html.DisplayFor(model => model.ProductName)<b>@active</b></h2>
+                    </div>
+                    <div class="detail_head_r">
+
+                        <br class="clear_br">
+                    </div>
+                </div>
+                <!-- /detail_head end -->
+            </div>
+            <div class="f-repeat clearfix" style="padding-bottom: 20px;">
+                <div class="content" style="padding: 20px !important;">
+                    <div class="col1">
+                        <div class="content">
+                            <div class="auction-image">
+                                <img src="http://hhgregg.scene7.com/is/image/hhgregg/DP132_a2_fronthigh?id=dzMRJ2&scl=16&req=tile&rect=0,0,157,157&fmt=jpg" class="productImageMax" alt="@Model.ProductName" title="@Model.ProductName">
+                            </div>
+                            <div class="thumbs">
+                            </div>
+                            <br class="clear_br">
+                            <div class="align-center" style="margin-bottom: 0px;">
+                                <p style="margin: 5px 0 13px; padding: 0;">
+                                    <label>Hover to enlarge image</label>
+                                </p>
+                                @{if (!WebSecurity.IsAuthenticated)
+                                  {
+                                    <div style="margin: -3px 0 0 -11px;"><a href="account/register" class="button_orage" style="font-size: 14px; white-space: nowrap;">Hurry! Register for free bids.</a></div>
+                                  }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col2">
+                        <div class="content auction-Product" title="@Model.AuctionId" id="auction_@Model.AuctionId" style="padding: 0;">
+                            <div class="sub-col1">
+
+                                <dl class="clearfix" style="padding: 10px 10px 0;"></dl>
+
+                                <dl class="clearfix" style="padding: 10px 10px 0;">
+                                    <dt>
+
+                                        <span class="font-18">Current price :</span>
+                                    </dt>
+                                    <dd class="price">
+
+                                        <span class="bid-price flashers" style="">$@Html.DisplayFor(model => model.Price)</span>
+
+                                        <br>
+                                        <span class="vat">Including tax &amp; shipping</span>
+
+                                    </dd>
+                                    <br />
+                                    <dt>
+                                        Buy it now :
+                                    </dt>
+                                    <dd class="price_bin">$@Html.DisplayFor(model => model.BuyItPrice)</dd>
+                                    <br />
+
+
+                                    <dt>Latest bidder :</dt>
+                                    <dd class="username"><span class="bid-bidder flashers" style="">@ViewData["WinningBidder"]</span></dd>
+                                </dl>
+
+
+
+                                <div style="padding-bottom: 0px;">
+
+
+                                    <span class="popup_time">
+                                        <a href="#">
+                                            <span class="tips">
+                                                <pre>With each bid, the time remaining will increase by <strong class="orange2">10 seconds</strong>.</pre>
+                                            </span>
+                                            <img src="http://assets.phppennyauctiondemo.com/img/increment/time8.png" class="timeincrement">
+                                        </a>
+                                    </span>
+                                    @{var remainng = Model.ExpirationDate.Subtract(DateTime.Now);}
+                                    <div id="timer_@Model.AuctionId" class="timer countdown flashers" title="@remainng.TotalMilliseconds" style="color: rgb(0, 0, 0);">Loading...</div>
+                                </div>
+
+                                <div class="bid-now" style="height: 55px; clear: both">
+                                    @{
+
+                                        if(WebSecurity.IsAuthenticated){
+                                            Html.RenderPartial("_PlaceBid", Model.Bid);
+                                        Html.RenderPartial("_PayNow", Model.Order);
+                                        Html.RenderPartial("_PlaceOrder", Model.Order);
+                                        }
+                                    }
+                                </div>
+
+                                <div class="bid-msg">
+                                    <div class="bid-message" style="display: none"></div>
+                                </div>
+
+                                <div class="note" style="margin-top: 3px">
+                                    With each bid, the auction price increases by <span class="side_2px bold blk price-increment">$@Model.BidIncrement</span>
+                                </div>
+
+                            </div>
+
+                            <div class="count-saving">
+                                <dl class="saving">
+                                    <dt class="saving">MSRP:</dt>
+                                    <dd class="saving">$@Html.DisplayFor(model => model.RetailPrice)</dd>
+                                    <dt class="saving" style="border: 0px;">Current price :	</dt>
+                                    <dd class="bid-price2 flashers" style="border: 0px;">$@Html.DisplayFor(model => model.Price)</dd>
+                                </dl>
+                                <br class="clear_br">
+                                <div class="total-savings align-center">Save over <span class="bid-savings-price flashers side_5px">$@Model.Savings</span> from the normal retail price!						</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <script>
+                        $(function () {
+                            $("#tabs").tabs();
+                        });
+                    </script>
+                    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+                    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+                    <div class="col3">
+
+                        <!-- tab "panes" -->
+                        <div id="tabs">
+                            <ul class="tbs">
+                                <li><a href="#tabs-1" class="current">Bids</a></li>
+                                @{if (WebSecurity.IsAuthenticated)
+                                  {
+                                    <li><a href="#tabs-2">Autobids</a></li>}}
+                            </ul>
+                            <div class="bid-history bid-histories" id="tabs-1" style="display: block; overflow-y: scroll">
+                                @{Html.RenderPartial("_BidHistory", Model.Bids);}
+
+                            </div>
+                            <!-- the
+                                 tabs -->
+
+                            <div class="bid-history bid-histories" id="tabs-2" style="display: none;">
+                                @{
+                                    if (ViewData["HasAutobid"] == "true")
+                                    {
+                                        Html.RenderPartial("_EditAutoBid", Model.UserAutoBid);
+                                    }
+                                    else
+                                    {
+                                        Html.RenderPartial("_NewAutoBid", Model.UserAutoBid);
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="payment-info" class="f-repeat clearfix">
+                    <div class="content" style="padding: 10px 25px; margin-bottom: 10px;">
+                        <div class="col1">
+                            <dl>
+                                <dt>Auction ID:</dt>
+                                <dd>@Html.DisplayFor(model => model.AuctionId)</dd>
+                                <dt>Category:</dt>
+                                <dd>@Html.DisplayFor(model => model.ProductCat)</dd>
+                                <dt>Payment:</dt>
+                                <dd>Paypal</dd>
+                            </dl>
+                        </div>
+                        <div class="col2">
+                            <dl>
+                                <dt>Shipping Fee :</dt>
+                                <dd>Free</dd>
+                            </dl>
+                            <br class="clear_br">
+                            <div class="info">
+                                <strong>Shipping information:</strong>
+                                <p>Ships WITHIN 3 days via Standard Shipping</p>
+                            </div>
+                        </div>
+                        <div class="col3">
+                            <dl>
+                                <dt>Prices start at:</dt>
+                                <dd>@Html.DisplayFor(model => model.StartPrice)</dd>
+                                <dt>Start time:</dt>
+                                <dd>@Html.DisplayFor(model => model.CreatedOn)</dd>
+                                <dt>End time:</dt>
+                                <dd>@Html.DisplayFor(model => model.ExpirationDate)</dd>
+                            </dl>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="f-bottom clearfix">&nbsp;</div>
+            </div>
+
+
+
+            <div id="product-desc" class="box">
+                <div class="f-top-w clearfix" style="height: 75px !important;">
+                    <h2 style="font-size: 20px;">@Html.DisplayFor(model => model.ProductName)</h2>
+
+                    @Html.DisplayFor(model => model.ProductDesc)
+                </div>
+
+                <div class="f-bottom-top clearfix">
+                    <p class="page_top">
+                        <a href="#" id="link_to_top">TOP OF PAGE</a>|
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.AuctionId })
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

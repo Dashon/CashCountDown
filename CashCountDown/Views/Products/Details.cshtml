@@ -1,0 +1,120 @@
+﻿@model CashCountDown.Models.Product
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div id="container">
+<div id="maincontent" class="clearfix">
+
+
+    <div id="auction-details" class="box">
+        <div class="f-top-o clearfix" style="height: 84px;">
+
+            <div class="detail_head">
+                <div class="detail_head_l">
+                    <h2>@Html.DisplayFor(model => model.Name)</h2>
+                </div>
+                <div class="detail_head_r">
+
+                    <br class="clear_br">
+                </div>
+            </div>
+            <!-- /detail_head end -->
+        </div>
+        <div class="f-repeat clearfix" style="padding-bottom: 20px;">
+            <div class="content" style="padding: 20px !important;">
+                <div class="col1">
+                    <div class="content">
+                        <div class="auction-image">
+                            <img src="/img/product_images/max/afed0d0bfe6745ab48fc6d277cf801fd715fb550.jpg" class="productImageMax" alt="@Model.Name" title="Model.Name">
+                        </div>
+                        <div class="thumbs">
+                        </div>
+                        <br class="clear_br">
+                        <div class="align-center" style="margin-bottom: 0px;">
+                            <p style="margin: 5px 0 13px; padding: 0;">
+                                <label>Hover to enlarge image</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col2">
+                    <div class="content auction-item" title="111" id="auction_111" style="padding: 0;">
+                        <div class="sub-col1">
+
+                            <dl class="clearfix" style="padding: 10px 10px 0;">
+                            </dl>
+
+                            <dl class="clearfix" style="padding: 10px 10px 0;">
+                                <dt>
+
+                                    <span class="font-18">Retail price :</span>
+                                </dt>
+                                <dd class="price">
+
+                                    <span class="bid-price" style="">@Html.DisplayFor(model => model.RetailPrice)</span>
+
+                                </dd>
+
+                            </dl>
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="payment-info" class="f-repeat clearfix">
+                <div class="content" style="padding: 10px 25px; margin-bottom: 10px;">
+                    <div class="col1">
+                        <dl>
+                            <dt>Product ID:</dt>
+                            <dd>@Html.DisplayFor(model => model.ProductId)</dd>
+                            <dt>Category:</dt>
+                            <dd>@Html.DisplayFor(model => model.Category)</dd>
+                            <dt>Payment:</dt>
+                            <dd>Paypal</dd>
+                        </dl>
+                    </div>
+
+                    <div class="col2">
+                        <dl>
+                            <dt>Start time:</dt>
+                            <dd>@Html.DisplayFor(model => model.CreatedOn)</dd>
+                        </dl>
+                    </div>
+                    <div class="col3">
+                    </div>
+                </div>
+            </div>
+            <div class="f-bottom clearfix">&nbsp;</div>
+        </div>
+
+
+
+        <div id="product-desc" class="box">
+            <div class="f-top-w clearfix" style="height: 75px !important;">
+                <h2 style="font-size: 20px;">@Html.DisplayFor(model => model.Name)</h2>
+
+                @Html.DisplayFor(model => model.Description)
+            </div>
+
+            <div class="f-bottom-top clearfix">
+                <p class="page_top">
+                    <a href="#" id="link_to_top">TOP OF PAGE</a>|
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+

@@ -1,0 +1,64 @@
+﻿@model CashCountDown.Models.ShippingAddr
+
+@{
+    ViewBag.Title = "Shipping Address<";
+}
+
+<h2>Shipping Address</h2>
+
+<fieldset>
+    <legend>Shipping Address</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Addr1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Addr1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Addr2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Addr2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.City)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.State)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Zip)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Zip)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "EditShippingAddr","Account", new { id=Model.ShippingAddrId },null) |
+    @Html.ActionLink("Home", "Index")
+</p>

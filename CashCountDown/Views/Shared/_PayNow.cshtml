@@ -1,0 +1,20 @@
+﻿@model CashCountDown.Models.Order
+
+@{
+    ViewBag.Title = "Place Order";
+}
+
+@using (Html.BeginForm("SubmitOrder", "Auctions", new { ProductId = Model.AuctionId, UserId = Model.UserId, BidPackageId = Model.BidPackageId }))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.AuctionId)
+    @Html.HiddenFor(model => Model.BidPackageId)
+    if ((WebSecurity.IsAuthenticated)
+        & (Model.Auction.Active)
+        & (Model.Auction.WinningUserId == WebSecurity.CurrentUserId)
+        & (Model.Auction.ExpirationDate < DateTime.Now))
+    {
+    <input type="submit" value="Pay Now" />
+    }
+}

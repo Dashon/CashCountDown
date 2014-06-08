@@ -1,0 +1,37 @@
+﻿@model CashCountDown.Models.Bid
+
+@{
+    ViewBag.Title = "Place Bid";
+    var stringID = "msg-" + Model.AuctionId.ToString();
+}
+
+@Html.HiddenFor(model => model.AuctionId)
+
+<div style="display: none;">
+    ]
+        @Html.EditorFor(model => model.Amount)
+    @Html.ValidationMessageFor(model => model.Amount)
+</div>
+@if (WebSecurity.IsAuthenticated)
+{
+    if ((Model.Auction.ExpirationDate > DateTime.Now) & (Model.Auction.Active))
+    {
+    <div class="bid-now clearfix">
+        <div class="bid-loading" style="display: none">
+            <img src="/Images/ajax-arrows.gif" alt="">
+        </div>
+        <div class="bid-button">
+            <a class="bid-button-link button-small" title="@Model.AuctionId" href="#">Bid </a>
+        </div>
+    </div>
+
+    }
+}
+else
+{
+    @Html.ActionLink("Login", "Login", "Account");
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,71 @@
+﻿@model CashCountDown.Models.Auction_Edit
+
+@{
+    ViewBag.Title = "Edit";
+
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>Auction</legend>
+
+       @Html.HiddenFor(model => model.AuctionId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductName, "Product")
+        </div>
+        <div class="editor-field">
+            @Model.ProductName
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BidCost)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BidCost)
+            @Html.ValidationMessageFor(model => model.BidCost)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BidIncrement)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BidIncrement)
+            @Html.ValidationMessageFor(model => model.BidIncrement)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExpirationDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExpirationDate)
+            @Html.ValidationMessageFor(model => model.ExpirationDate)
+        </div>
+
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

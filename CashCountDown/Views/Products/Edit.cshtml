@@ -1,0 +1,101 @@
+﻿@model CashCountDown.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>Product</legend>
+
+        @Html.HiddenFor(model => model.ProductId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId, "Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BuyItPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BuyItPrice)
+            @Html.ValidationMessageFor(model => model.BuyItPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RetailPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RetailPrice)
+            @Html.ValidationMessageFor(model => model.RetailPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedOn)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedOn)
+            @Html.ValidationMessageFor(model => model.CreatedOn)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ModifiedOn)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ModifiedOn)
+            @Html.ValidationMessageFor(model => model.ModifiedOn)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserId, "UserProfile")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("UserId", String.Empty)
+            @Html.ValidationMessageFor(model => model.UserId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

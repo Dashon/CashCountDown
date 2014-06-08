@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MvcPaging</id>
+    <version>2.0.3</version>
+    <authors>Martijn Boland,  Bart Lenaerts,  Rajeesh CV</authors>
+    <owners>Martijn Boland,  Bart Lenaerts,  Rajeesh CV</owners>
+    <licenseUrl>https://github.com/martijnboland/MvcPaging/wiki/License</licenseUrl>
+    <projectUrl>https://github.com/martijnboland/MvcPaging</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Paging library for ASP.NET MVC.</description>
+    <releaseNotes>2.0.3 (2012-06-22)
+- Fixed issue where setting the Action option would be overridden when also setting
+  the RouteValues option. 
+- Added Defaults to PagerOptions class.
+- Added PageRouteValueKey option to set the name of the page parameter.
+Thanks to Erdogan Kurtur and Steven Anderson for the contributions.</releaseNotes>
+    <tags>mvc3 pager asp.net mvc paging</tags>
+  </metadata>
+</package>

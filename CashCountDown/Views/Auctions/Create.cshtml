@@ -1,0 +1,80 @@
+﻿@model CashCountDown.Models.Auction_Create
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Auction</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductId, "Product")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ProductId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProductId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartPrice)
+            @Html.ValidationMessageFor(model => model.StartPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BidCost)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BidCost)
+            @Html.ValidationMessageFor(model => model.BidCost)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BidIncrement)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BidIncrement)
+            @Html.ValidationMessageFor(model => model.BidIncrement)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExpirationDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExpirationDate)
+            @Html.ValidationMessageFor(model => model.ExpirationDate)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

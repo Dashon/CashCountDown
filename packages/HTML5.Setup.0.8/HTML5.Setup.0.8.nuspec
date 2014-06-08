@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HTML5.Setup</id>
+    <version>0.8</version>
+    <title>HTML5 Setup</title>
+    <authors>Mads Kristensen</authors>
+    <owners>Mads Kristensen</owners>
+    <iconUrl>http://www.w3.org/html/logo/downloads/HTML5_Badge_128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HTML5 Setup adds support for video, audio and font file types used by HTML5 and CSS3</description>
+    <summary>HTML5 Setup adds support for video, audio and font file types used by HTML5 and CSS3</summary>
+    <tags>html5 css3 standards filetypes ogg woff eot mp4 m4v webm video audio font</tags>
+  </metadata>
+</package>

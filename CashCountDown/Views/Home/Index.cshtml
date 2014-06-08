@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Html.RenderPartial("_Featured");
+}
+
+<div id="container">
+	<div id="maincontent" class="clearfix">
+        <div id="ending-soon" class="box" style="margin-top: 0;">
+    <div class="f-top-w clearfix" style="height: 60px;">
+        <div class="top_h2_l">
+            <h2 class="top">
+                <label>Get Bidding! These auctions are ending soon...</label></h2>
+        </div>
+
+        <br class="clear_br">
+    </div>
+
+    <div class="f-repeat clearfix">
+
+        <div class="content" style="padding: 20px 20px 20px 30px !important;">
+
+        @{
+            Html.RenderPartial("_HorizantalAuctionList",ViewData["List1"]);}
+
+               <br class="clear_br">
+
+            <div class="see-more float-right">
+
+                <a href="/auctions">More &raquo;</a>
+            </div>
+
+            <br class="clear_br">
+        </div>
+    </div>
+
+    <div class="f-bottom clearfix">&nbsp;</div>
+
+</div>
+
+
+
+        <div id="live-bids" class="box">
+
+    <div class="f-top-w clearfix" style="height: 60px;">
+        <h2 class="top">
+            <label>Other recommended auctions</label></h2>
+    </div>
+
+         @{Html.RenderPartial("_VerticalAuctionList", ViewData["List2"]);}
+              <div class="f-bottom-top clearfix">
+        <p class="page_top"><a href="#" id="link_to_top">PAGE TOP</a></p>
+    </div>
+
+</div>
+
+
+
+	</div>
+
+	</div>
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Facebook.Helper</id>
+    <version>1.0</version>
+    <title>Facebook.Helper</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Facebook Helper for WebMatrix make it easy to add social widgets on your web pages using the minimum amount of code.</description>
+    <summary>The Facebook Helper for WebMatrix make it easy to add social widgets on your web pages using the minimum amount of code.</summary>
+    <tags>ASPNETWEBPAGES</tags>
+  </metadata>
+</package>

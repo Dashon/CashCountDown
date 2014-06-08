@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>PayPal.Helper</id>
+    <version>1.0.1</version>
+    <title>PayPal.Helper</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://paypalhelper.codeplex.com/license</licenseUrl>
+    <projectUrl>http://paypalhelper.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The PayPal helper allows you to integrate PayPal payments within your WebMatrix website or e-commerce application. With a few lines of code you'll enable your Website customers to click on a payment buttons to pay for their purchases with their PayPal accounts.</description>
+    <summary>The PayPal helper allows you to integrate PayPal payments within your WebMatrix website or e-commerce application. With a few lines of code you'll enable your Website customers to click on a payment buttons to pay for their purchases with their PayPal accounts.</summary>
+    <tags>ASPNETWEBPAGES</tags>
+    <dependencies>
+      <dependency id="log4net" version="1.2.10" />
+    </dependencies>
+  </metadata>
+</package>

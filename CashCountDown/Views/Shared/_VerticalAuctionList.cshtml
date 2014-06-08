@@ -1,0 +1,111 @@
+﻿@model IEnumerable<CashCountDown.Models.Auction>
+
+
+<div class="f-repeat clearfix">
+
+    <div class="content" style="padding-top: 5px;">
+
+        <div class="bid-heading clearfix">
+
+            <div class="content">
+
+                <div class="col1">&nbsp;</div>
+
+                <div class="col2">&nbsp;</div>
+
+                <div class="col3">Price</div>
+
+                <div class="col4">Bidder</div>
+
+                <div class="col5">Time left</div>
+
+            </div>
+
+        </div>
+
+        <ul class="vertical-bid-list">
+            @{if (Model != null)
+              {
+                  foreach (var auction in Model)
+                  { 
+                <li class="auction-Product" title="@auction.AuctionId" id="auction_@auction.AuctionId">
+
+                    <div class="content">
+                        <div class="col1 thumb">
+
+                            <a href="/Auctions/Details/@auction.AuctionId"><span class="penny  featured"></span>
+
+                                <img src="http://hhgregg.scene7.com/is/image/hhgregg/DP132_a2_fronthigh?id=dzMRJ2&scl=16&req=tile&rect=0,0,157,157&fmt=jpg" alt="" />
+                            </a>
+                        </div>
+
+                        <div class="col2">
+
+                            <h3 class="heading">@Html.ActionLink(auction.Product.Name, "Details", new { id = auction.AuctionId })</h3>
+
+                            @auction.Product.Description
+
+                            <div></div>
+
+                        </div>
+
+                        <div class="col3">
+
+                            <div class="price flashers">
+
+                                <div class="bid-price">$@auction.Price</div>
+
+                            </div>
+
+                            <div class="rrp">Retail Price : $@auction.Product.RetailPrice</div>
+
+                        </div>
+                        @{ var un = (auction.WinningUserId == null) ? "No Bidders" : auction.WinningUser.UserName;}
+                        <div class="col4 bid-bidder flashers">
+                            <label>@un</label>
+                        </div>
+
+                        <div class="col5">
+
+                            <div id="auctionLive_@auction.AuctionId" class="timer countdown clearfix flashers" title="@auction.ExpirationDate">Loading...</div>
+
+                            <div class="bid-now">
+
+                                @{  var bd = new CashCountDown.Models.Bid { AuctionId = auction.AuctionId
+                                        , Auction = auction };
+                                    //var ord = new CashCountDown.Models.Order { AuctionId = auction.AuctionId };
+                                    Html.RenderPartial("_PlaceBid", bd);
+                      // Html.RenderPartial("_PlaceOrder", ord);
+                                }
+
+                                <div class="bid-message"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </li>
+                  }
+              }
+            }
+
+        </ul>
+
+        <br class="clear_br">
+
+        <div class="see-more float-right">
+
+            <a href="/auctions">More &raquo;</a>
+        </div>
+
+        <br class="clear_br">
+    </div>
+
+</div>
+
+
+
+

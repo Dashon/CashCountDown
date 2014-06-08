@@ -1,0 +1,60 @@
+﻿@model CashCountDown.Models.AutoBid
+
+<h2>Update Autobidder</h2>
+@using (Html.BeginForm("DeactivateAutoBid", "Auctions", new { id = Model.AutoBidId }))
+{@Html.AntiForgeryToken()
+     <input type="submit" value="Delete" />
+}
+
+@using (Html.BeginForm("EditAutoBid", "Auctions"))
+{@Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AutoBid</legend>
+
+        @Html.HiddenFor(model => model.AutoBidId)
+            @Html.HiddenFor(model => model.AuctionId, "Item")
+       
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartAmount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartAmount)
+            @Html.ValidationMessageFor(model => model.StartAmount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxAmount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxAmount)
+            @Html.ValidationMessageFor(model => model.MaxAmount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxBids)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxBids)
+            @Html.ValidationMessageFor(model => model.MaxBids)
+        </div>
+
+        @{
+    if (Model.Auction.ExpirationDate > DateTime.Now.AddMinutes(1))
+    {
+                <input type="submit" value="Create" />
+    }
+    else
+    {
+                <label>No changes allowed during final countdown</label>
+    }
+            }
+
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

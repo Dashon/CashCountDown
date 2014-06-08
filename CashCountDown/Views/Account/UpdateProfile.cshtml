@@ -1,0 +1,40 @@
+﻿@model CashCountDown.Models.LocalProfileModel
+@{
+    ViewBag.Title = "Update Profile";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+@using (Html.BeginForm("UpdateProfile", "Account")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <fieldset>
+        <legend>Update Profile</legend>
+        
+          <ol>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.DisplayFor(model => model.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.EditorFor(model => model.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.MiddleName)
+                @Html.EditorFor(model => model.MiddleName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.LastName)
+                @Html.EditorFor(model => model.LastName)
+            </li>
+        </ol>
+        <input type="submit" value="Update Profile" />
+    </fieldset>
+}
+
+

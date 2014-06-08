@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")  
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")  
+    @Scripts.Render("~/bundles/Auctions")
+    @RenderSection("scripts", required: false)
+    <!--[if lt IE 7]>
+
+<script type="text/javascript" src="http://assets.phppennyauctiondemo.com/js/dropdown.js"></script>	<![endif]-->
+
+    <!--[if lte IE 6]>
+
+<script type="text/javascript" src="/js/ie6/warning.js"></script><script>window.onload=function(){e("//js/ie6/")}</script>
+
+<![endif]-->
+
+</head>
+
+<body>
+    @*used for ajax in AddAntiForgeryToken()*@
+<form id="__AjaxAntiForgeryForm" action="#" method="post">@Html.AntiForgeryToken()</form> 
+    <header>
+        @{Html.RenderPartial("_Header");}
+    </header>
+    <h1 class="head_h1"></h1>
+    <section id="main">
+        @RenderBody()
+    </section>
+
+    <footer>
+        @{Html.RenderPartial("_Footer");}
+    </footer>
+
+</body>
+</html>

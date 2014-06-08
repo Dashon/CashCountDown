@@ -1,0 +1,73 @@
+﻿@model CashCountDown.Models.Product
+
+@{
+    ViewBag.Title = "Create Problem";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>Product</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId, "Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BuyItPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BuyItPrice)
+            @Html.ValidationMessageFor(model => model.BuyItPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RetailPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RetailPrice)
+            @Html.ValidationMessageFor(model => model.RetailPrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

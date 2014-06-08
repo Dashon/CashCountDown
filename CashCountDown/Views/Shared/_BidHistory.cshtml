@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CashCountDown.Models.BidHistory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+        @{if (Model.Count() <1) {<br /> <label>No Bids</label>} else{
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>
+                        <label>Time</label></th>
+                    <th>
+                        <label>Bidder</label></th>
+                    <th>
+                        <label>Type</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    string type = (item.IsAutoBid) ? "Autobid" : "Single Bid";
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.DateTime)</td>
+                        <td>@Html.DisplayFor(modelItem => item.userName)</td>
+                        <td>@type</td>
+                    </tr>
+                }
+            </tbody>
+        </table>;
+        }
+        }
